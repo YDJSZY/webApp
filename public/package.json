@@ -1,0 +1,21 @@
+{
+  "name": "webapp",
+  "version": "1.0.0",
+  "description": "this is a app for vue",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "luwenwei",
+  "license": "ISC",
+  "dependencies": {
+    "admin-lte": "^2.3.11",
+    "bootstrap": "^3.3.7",
+    "font-awesome": "^4.7.0",
+    "vue": "^2.2.1",
+    "vue-router": "^2.3.0",
+    "zepto": "^1.2.0",
+    "vue-resource": "^1.0.3",
+    "vuex": "^2.1.1"
+  }
+}
