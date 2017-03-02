@@ -30,7 +30,7 @@
 /******/ 	// "0" means "already loaded"
 /******/ 	// Array means "loading", array contains callbacks
 /******/ 	var installedChunks = {
-/******/ 		2:0
+/******/ 		3:0
 /******/ 	};
 
 /******/ 	// The require function
@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 
-/******/ 			script.src = __webpack_require__.p + "" + ({"0":"app","1":"plugins_css"}[chunkId]||chunkId) + ".js";
+/******/ 			script.src = __webpack_require__.p + "" + ({"0":"app","1":"main","2":"plugins_css"}[chunkId]||chunkId) + ".js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -99,13 +99,13 @@
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(26);
-	module.exports = __webpack_require__(27);
+	__webpack_require__(38);
+	module.exports = __webpack_require__(39);
 
 
 /***/ },
 
-/***/ 26:
+/***/ 38:
 /***/ function(module, exports) {
 
 	/*!
@@ -118,7 +118,7 @@
 
 /***/ },
 
-/***/ 27:
+/***/ 39:
 /***/ function(module, exports) {
 
 	/*! AdminLTE app.js

@@ -12,10 +12,11 @@
     "admin-lte": "^2.3.11",
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",
+    "jquery": "^3.1.1",
     "vue": "^2.2.1",
-    "vue-router": "^2.3.0",
-    "zepto": "^1.2.0",
     "vue-resource": "^1.0.3",
-    "vuex": "^2.1.1"
+    "vue-router": "^2.3.0",
+    "vuex": "^2.1.1",
+    "zepto": "^1.2.0"
   }
 }

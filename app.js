@@ -8,10 +8,10 @@ var ejs = require('ejs');
 /*var mongoose = require("mongoose");
 var db = mongoose.createConnection('localhost','blog');*/ //创建一个数据库连接
 var routes = require('./routes/index');
-/*var users = require('./routes/users');
-var register = require("./routes/register");
-var login = require("./routes/login");
-var myinfo = require("./routes/myinfo");*/
+/*var users = require('./route/users');
+var register = require("./route/register");
+var login = require("./route/login");
+var myinfo = require("./route/myinfo");*/
 var app = express();
 
 /*db.on('error',console.error.bind(console,'连接错误:'));
@@ -19,7 +19,7 @@ db.once('open',function(){
   console.log("数据库已打开啦")
 });*/
 // view engine setup
-app.set('views', path.join(__dirname, 'public/views'));
+app.set('views', path.join(__dirname, 'public/output'));
 app.engine('html',ejs.__express);
 app.set('view engine', 'html');
 
@@ -29,7 +29,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'output')));
+app.use(express.static(path.join(__dirname, 'public/output')));
 app.use(function(req,res,next){
   //console.log("cookies:"+req.cookies)
   next();

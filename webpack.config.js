@@ -10,13 +10,14 @@ module.exports = {
     // 入口文件，path.resolve()方法，可以结合我们给定的两个参数最后生成绝对路径，最终指向的就是我们的index.js文件
     entry:{
         app:path.resolve(__dirname, './public/app.js'),
+        //jquery:path.resolve(__dirname,'./public/node_modules/jquery/dist/jquery.min.js'),
         plugins_css:plugins.css,
         plugins_js:plugins.js,
     },
     // 输出配置
     output: {
         // 输出路径是 myProject/output/static
-        path: path.resolve(__dirname, 'output/'),
+        path: path.resolve(__dirname, 'public/output/'),
         publicPath: '/',
         filename: '[name].js',
         chunkFilename: '[name].js'
