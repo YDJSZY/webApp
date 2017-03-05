@@ -7,6 +7,7 @@ var plugins = {
         "./public/node_modules/admin-lte/dist/css/AdminLTE.min.css",
         "./public/node_modules/admin-lte/dist/css/skins/_all-skins.min.css",
         "./public/node_modules/font-awesome/css/font-awesome.min.css",
+        "./public/styles/webapp.css"
     ],
     "js":[
         "./public/node_modules/bootstrap/dist/js/bootstrap.min.js",

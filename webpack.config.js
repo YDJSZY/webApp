@@ -59,7 +59,7 @@ module.exports = {
                 loader: 'style!css!sass'
             },
             {test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader","css-loader")},
-            { test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=50000&name=[path][name].[ext]'}
+            { test: /\.(gif|jpg|jpeg|png|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=50000&name=[path][name].[ext]'}
         ]
     },
     plugins: [

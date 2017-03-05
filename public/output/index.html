@@ -3,9 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <link href="/plugins_css.css" rel="stylesheet"></head>
 <body>
 <div class="wrapper" id="app">
+    <div class="wrapper-header bg-blue">
+        <!--<div class="app-logo">
+            <img>
+        </div>-->
+        <div class="app-title">
+            <span class="title">知乎</span>
+        </div>
+        <div class="site-search">
+            <form role="form" style="width: 100%;">
+                <input class="search-input" placeholder="搜索你感兴趣的内容...">
+            </form>
+        </div>
+        <div class="avatar">
+            <img src="/images/timg.jpeg">
+        </div>
+    </div>
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <router-view></router-view>
