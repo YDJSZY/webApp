@@ -27,11 +27,16 @@ module.exports = {
     },*/
     resolve: {
         alias: {
-            'vue$': 'vue/dist/vue.common.js'
+            'vue$': 'vue/dist/vue.common.js',
+            'swiper':path.resolve(__dirname,'public/node_modules/swiper/dist/js/swiper.jquery.min.js')
         }
     },
     module: {
-
+        /*loaders:[
+            { 
+                loader: 'exports-loader',
+                test: require.resolve('./public/node_modules/ckeditor/ckeditor.js'), loader: "exports?CKEDITOR" }
+        ],*/
         loaders: [
             // 使用vue-loader 加载 .vue 结尾的文件
             {
@@ -58,6 +63,10 @@ module.exports = {
                 test: /\.scss$/,
                 loader: 'style!css!sass'
             },
+            /*{
+                test: /\.(png|jpg)$/,
+                loader: 'url-loader?limit=8192&name=images/[name].[ext]'
+            },*/
             {test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader","css-loader")},
             { test: /\.(gif|jpg|jpeg|png|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=50000&name=[path][name].[ext]'}
         ]

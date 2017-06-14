@@ -5,62 +5,72 @@ const Vue = require("vue");
 const VueRouter = require("vue-router");
 const routes = require("./route/routes");
 const Vuex = require("vuex");
-//const storeObj = require("./state_store/store");
-
-//require("./components/global_components");
+const states = require("./scripts/store");
+const cm = require("./scripts/commonMethods");
+require("./scripts/components");
 Vue.use(require("vue-resource"));
 Vue.use(VueRouter);
 Vue.use(Vuex);
-//const store = new Vuex.Store(storeObj)
+const store = new Vuex.Store(states)
 const router = new VueRouter({
     routes:routes
 });
 
+router.beforeEach(function (to, from, next){
+    if(from.path!="/search/searchResults" && from.path!="/search"){
+        store.commit({
+            "type":"setLastRoute",
+            "lastRoute":from.path
+        });
+    }
+    next();
+})
+
 const app = new Vue({
     router:router,
-    //store:store,
+    store:store,
     data:{
-        
+       // currentRoute:''
+    },
+    computed:{
+        currentRoute:function() {
+            return this.$store.state.currentRoute
+        }
     },
     methods:{
-        showLoading:function (global) {
-            var p, c;
-            if(global){
-                p = "fakeloader1";
-                c = "spinner1";
-            }else{
-                p = "fakeloader6";
-                c = "spinner2";
-            }
-            $('.' + c).show();
-            $("." + p).fadeIn("fast");
+        showLoading: function () {
+            $("#loadingGif").show();
         },
-        hideLoading: function (global) {
-            var p;
-            if(global){
-                p = "fakeloader1";
-            }else{
-                p = "fakeloader6";
-            }
-            $("."+p).fadeOut(500);
-        }
+
+        hideLoading: function () {
+            setTimeout(function () {
+                $("#loadingGif").hide();
+            },300)
+
+        },
     },
     beforeCreate: function () {
 
     },
     created: function() {
-        //this.showLoading(true);
-        Vue.prototype.showLoading = this.showLoading;
-        Vue.prototype.hideLoading = this.hideLoading;
+        for(var m in cm){
+            Vue.prototype[m] = cm[m];
+        }
+    },
+    mounted:function () {
+        //this.currentRoute = this.$store.state.currentRoute;
     }
 }).$mount('#app');
 
 Vue.http.interceptors.push(function(request, next){
     if(request.loading){
-        //app.showLoading()
+        request.headers.set("loading","true");
+        
     };
     next(function (response) {
-        //app.hideLoading()
+        if(request.loadingEnd || request.loading){
+            app.hideLoading()
+        }
         return response
     })
 })

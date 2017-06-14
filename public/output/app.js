@@ -1,5 +1,6 @@
-webpackJsonp([0],[
-/* 0 */
+webpackJsonp([0],{
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10,65 +11,76 @@ webpackJsonp([0],[
 	var Vue = __webpack_require__(1);
 	var VueRouter = __webpack_require__(3);
 	var routes = __webpack_require__(4);
-	var Vuex = __webpack_require__(16);
-	//const storeObj = require("./state_store/store");
-
-	//require("./components/global_components");
-	Vue.use(__webpack_require__(13));
+	var Vuex = __webpack_require__(64);
+	var states = __webpack_require__(65);
+	var cm = __webpack_require__(66);
+	__webpack_require__(70);
+	Vue.use(__webpack_require__(19));
 	Vue.use(VueRouter);
 	Vue.use(Vuex);
-	//const store = new Vuex.Store(storeObj)
+	var store = new Vuex.Store(states);
 	var router = new VueRouter({
 	    routes: routes
 	});
 
+	router.beforeEach(function (to, from, next) {
+	    if (from.path != "/search/searchResults" && from.path != "/search") {
+	        store.commit({
+	            "type": "setLastRoute",
+	            "lastRoute": from.path
+	        });
+	    }
+	    next();
+	});
+
 	var app = new Vue({
 	    router: router,
-	    //store:store,
-	    data: {},
+	    store: store,
+	    data: {
+	        // currentRoute:''
+	    },
+	    computed: {
+	        currentRoute: function currentRoute() {
+	            return this.$store.state.currentRoute;
+	        }
+	    },
 	    methods: {
-	        showLoading: function showLoading(global) {
-	            var p, c;
-	            if (global) {
-	                p = "fakeloader1";
-	                c = "spinner1";
-	            } else {
-	                p = "fakeloader6";
-	                c = "spinner2";
-	            }
-	            $('.' + c).show();
-	            $("." + p).fadeIn("fast");
+	        showLoading: function showLoading() {
+	            $("#loadingGif").show();
 	        },
-	        hideLoading: function hideLoading(global) {
-	            var p;
-	            if (global) {
-	                p = "fakeloader1";
-	            } else {
-	                p = "fakeloader6";
-	            }
-	            $("." + p).fadeOut(500);
+
+	        hideLoading: function hideLoading() {
+	            setTimeout(function () {
+	                $("#loadingGif").hide();
+	            }, 300);
 	        }
 	    },
 	    beforeCreate: function beforeCreate() {},
 	    created: function created() {
-	        //this.showLoading(true);
-	        Vue.prototype.showLoading = this.showLoading;
-	        Vue.prototype.hideLoading = this.hideLoading;
+	        for (var m in cm) {
+	            Vue.prototype[m] = cm[m];
+	        }
+	    },
+	    mounted: function mounted() {
+	        //this.currentRoute = this.$store.state.currentRoute;
 	    }
 	}).$mount('#app');
 
 	Vue.http.interceptors.push(function (request, next) {
 	    if (request.loading) {
-	        //app.showLoading()
+	        request.headers.set("loading", "true");
 	    };
 	    next(function (response) {
-	        //app.hideLoading()
+	        if (request.loadingEnd || request.loading) {
+	            app.hideLoading();
+	        }
 	        return response;
 	    });
 	});
 
 /***/ },
-/* 1 */
+
+/***/ 1:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global) {/*!
@@ -9252,7 +9264,8 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), (function() { return this; }())))
 
 /***/ },
-/* 2 */
+
+/***/ 2:
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -9438,7 +9451,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 3 */
+
+/***/ 3:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -11723,7 +11737,8 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 4 */
+
+/***/ 4:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11731,29 +11746,124 @@ webpackJsonp([0],[
 	/**
 	 * Created by luwenwei on 17/3/2.
 	 */
-	var main = function main(resolve) {
+	var header = function header(resolve) {
 	    __webpack_require__.e/* nsure */(1, function () {
 	        resolve(__webpack_require__(5));
 	    });
 	};
+
+	/*const footer = function (resolve) {
+	    require.ensure(["../views/footer.vue"],function () {
+	        resolve(require("../views/footer.vue"))
+	    },"footer");
+	}*/
+
+	var manChannel = function manChannel(resolve) {
+	    __webpack_require__.e/* nsure */(2, function () {
+	        resolve(__webpack_require__(14));
+	    });
+	};
+
+	var girlChannel = function girlChannel(resolve) {
+	    __webpack_require__.e/* nsure */(3, function () {
+	        resolve(__webpack_require__(24));
+	    });
+	};
+
+	var published = function published(resolve) {
+	    __webpack_require__.e/* nsure */(4, function () {
+	        resolve(__webpack_require__(29));
+	    });
+	};
+
+	var classify = function classify(resolve) {
+	    __webpack_require__.e/* nsure */(5, function () {
+	        resolve(__webpack_require__(34));
+	    });
+	};
+
+	var freeNovel = function freeNovel(resolve) {
+	    __webpack_require__.e/* nsure */(6, function () {
+	        resolve(__webpack_require__(39));
+	    });
+	};
+
+	var search = function search(resolve) {
+	    __webpack_require__.e/* nsure */(7, function () {
+	        resolve(__webpack_require__(44));
+	    });
+	};
+
+	var searchResults = function searchResults(resolve) {
+	    __webpack_require__.e/* nsure */(8, function () {
+	        resolve(__webpack_require__(49));
+	    });
+	};
+
+	var recommendSearch = function recommendSearch(resolve) {
+	    __webpack_require__.e/* nsure */(9, function () {
+	        resolve(__webpack_require__(54));
+	    });
+	};
+
+	var moreNovels = function moreNovels(resolve) {
+	    __webpack_require__.e/* nsure */(10, function () {
+	        resolve(__webpack_require__(59));
+	    });
+	};
+
 	var Vue = __webpack_require__(1);
 	var routes = [{
-	    path: '/main',
-	    component: main
-	}, { path: '*', redirect: '/main' }];
+	    path: '/manChannel',
+	    components: {
+	        default: manChannel,
+	        header: header
+	    }
+	}, {
+	    path: '/girlChannel',
+	    components: {
+	        default: girlChannel,
+	        header: header
+	    }
+	}, {
+	    path: '/published',
+	    components: {
+	        default: published,
+	        header: header
+	    }
+	}, {
+	    path: '/classify',
+	    components: {
+	        default: classify,
+	        header: header
+	    }
+	}, {
+	    path: '/freeNovel',
+	    components: {
+	        default: freeNovel,
+	        header: header
+	    }
+	}, {
+	    path: '/search',
+	    component: search,
+	    children: [{
+	        path: 'searchResults',
+	        component: searchResults
+	    }, {
+	        path: '',
+	        component: recommendSearch
+	    }]
+	}, {
+	    path: '/moreNovels/',
+	    component: moreNovels
+	    //beforeEnter: beforeEnter(Vue)
+	}, { path: '*', redirect: '/manChannel' }];
 
 	module.exports = routes;
 
 /***/ },
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */
+
+/***/ 19:
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -12833,7 +12943,7 @@ webpackJsonp([0],[
 
 	var nodeClient = function (request) {
 
-	    var client = __webpack_require__(14);
+	    var client = __webpack_require__(20);
 
 	    return new PromiseObj(function (resolve) {
 
@@ -13287,14 +13397,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 14 */
+
+/***/ 20:
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 15 */,
-/* 16 */
+
+/***/ 64:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -14110,5 +14221,151 @@ webpackJsonp([0],[
 	})));
 
 
+/***/ },
+
+/***/ 65:
+/***/ function(module, exports) {
+
+	"use strict";
+
+	/**
+	 * Created by Apple on 16/12/19.
+	 */
+	var obj = {
+	    state: {
+	        "currentRoute": "manChannel",
+	        "lastRoute": "/"
+	    },
+	    getters: {
+	        getNa: function getNa(state) {
+	            return state.na + "o";
+	        }
+	    },
+	    mutations: {
+	        setCurrentRoute: function setCurrentRoute(state, payload) {
+	            state.currentRoute = payload.currentRoute;
+	        },
+
+	        setLastRoute: function setLastRoute(state, payload) {
+	            state.lastRoute = payload.lastRoute;
+	        }
+	    }
+	};
+
+	module.exports = obj;
+
+/***/ },
+
+/***/ 66:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _stringify = __webpack_require__(67);
+
+	var _stringify2 = _interopRequireDefault(_stringify);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * Created by luwenwei on 17/5/6.
+	 */
+	module.exports = {
+	    getLocalStore: function getLocalStore() {
+	        var localStorage = window.localStorage;
+	        if (!localStorage.hasOwnProperty("novel")) this.setLocalStore({});
+	        return JSON.parse(localStorage.getItem("novel"));
+	    },
+
+	    setLocalStore: function setLocalStore(store) {
+	        localStorage.setItem("novel", (0, _stringify2.default)(store));
+	    },
+
+	    clearStoreByField: function clearStoreByField(field, value) {
+	        var localStore = this.getLocalStore();
+	        value ? localStore[field] = value : delete localStore[field];
+	        this.setLocalStore(localStore);
+	    },
+
+	    showLoading: function showLoading(global) {
+	        var p, c;
+	        if (global) {
+	            p = "fakeloader1";
+	            c = "spinner1";
+	        } else {
+	            p = "fakeloader6";
+	            c = "spinner2";
+	        }
+	        $('.' + c).show();
+	        $("." + p).fadeIn("fast");
+	    },
+
+	    hideLoading: function hideLoading(global) {
+	        var p;
+	        if (global) {
+	            p = "fakeloader1";
+	        } else {
+	            p = "fakeloader6";
+	        }
+	        $("." + p).fadeOut(500);
+	    },
+
+	    scrollRefresh: function scrollRefresh(option, context) {
+	        var direction = option.direction;
+	        var callBack = option.callBack;
+	        $(window).scroll(function () {
+	            var scrollTop = $(this).scrollTop();
+	            var scrollHeight = $(document).height(); //当前页面的总高度
+	            var clientHeight = $(this).height(); //当前可视的页面高度
+	            if (scrollTop + clientHeight >= scrollHeight) {
+	                $(".loading").css({ "visibility": "visible" });
+	                callBack.apply(context);
+	            }
+	        });
+	    }
+	};
+
+/***/ },
+
+/***/ 67:
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(68), __esModule: true };
+
+/***/ },
+
+/***/ 68:
+/***/ function(module, exports, __webpack_require__) {
+
+	var core = __webpack_require__(69);
+	module.exports = function stringify(it){ // eslint-disable-line no-unused-vars
+	  return (core.JSON && core.JSON.stringify || JSON.stringify).apply(JSON, arguments);
+	};
+
+/***/ },
+
+/***/ 69:
+/***/ function(module, exports) {
+
+	var core = module.exports = {version: '1.2.6'};
+	if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
+
+/***/ },
+
+/***/ 70:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	/**
+	 * Created by luwenwei on 17/5/7.
+	 */
+	var Vue = __webpack_require__(1);
+	var loading = Vue.extend({
+	  "template": '<div class="fl spinner7"><div class="circ1"></div><div class="circ2"></div><div class="circ3"></div><div class="circ4"></div></div>'
+	});
+	Vue.component("loading", loading);
+
 /***/ }
-]);
+
+});
